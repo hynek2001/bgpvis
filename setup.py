@@ -5,6 +5,6 @@ setup(name='bgpvis',
       description='BGP visualisation/analysis',
       author='Hynek Los',
       author_email='hynek.los@gmail.com',
-      url='https://www.python.org/sigs/distutils-sig/',
+      url='https://github.com/hynek2001/bgpvis',
       packages=['PyBGPdump', 'pandas','plotly'],
      )
