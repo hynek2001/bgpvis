@@ -6,5 +6,5 @@ setup(name='bgpvis',
       author='Hynek Los',
       author_email='hynek.los@gmail.com',
       url='https://github.com/hynek2001/bgpvis',
-      packages=['PyBGPdump', 'pandas','plotly'],
+      packages=['mrtparse', 'pandas','plotly'],
      )
