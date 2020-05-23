@@ -1,5 +1,5 @@
 """
-base lib for dump file handling
+uceni s bgp mrt...
 
 Hynek Los v0.1
 """
@@ -11,7 +11,7 @@ from logging import StreamHandler
 import requests
 from requests import get
 from mrtparse import *
-
+import datetime
 
 
 
@@ -58,21 +58,30 @@ class BGPDumpData(object):
         mr = Reader(ROOT_DIR+os.sep+self.RIPE_FILENAME)
         c=0
         for row in mr:
+            print(".",end='')
             mrt = row.mrt
-            logger.info(f"{__class__}: {str(mrt.type)}")
-            if c>100:
-                break
+            #logger.info(f"{__class__}: {str(mrt.type)}")
+            # if c>100:
+            #     break
             c+=1
             if mrt.err == MRT_ERR_C['MRT Data Error']:
                 logger.info("mrtInfo: MRT Data Error "+mrt.type)
             if mrt.type == MRT_T['TABLE_DUMP_V2']:
 
                 if mrt.subtype == TD_V2_ST['PEER_INDEX_TABLE']:
-                    logger.info(f"mrtInfo: {mrt.peer.collector}")
+                    logger.debug(f"collector:{mrt.peer.collector} viewName:{mrt.peer.view} peerCount:{mrt.peer.count}")
+                    for peer in mrt.peer.entry:
+                        logger.debug(f"mrtInfo:{str(peer.type)} {peer.bgp_id} {peer.ip} {peer.asn}")
+
+
+
 
 
 
 
 if __name__ == '__main__':
+    start = datetime.datetime.now()
     bg = BGPDumpData()
     bg.mrtInfo()
+    end = datetime.datetime.now()
+    print(f"{str(end-start)}")
